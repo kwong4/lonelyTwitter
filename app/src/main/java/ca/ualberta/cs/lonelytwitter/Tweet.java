@@ -13,6 +13,7 @@ public abstract class Tweet {
 
     public Tweet(String message) {
         this.message = message;
+        this.date = new Date();
     }
 
     // Polymorphism
@@ -52,5 +53,10 @@ public abstract class Tweet {
 
     public void addMood(Mood mood) {
         this.moodlist.add(mood);
+    }
+
+    @Override
+    public String toString(){
+        return date.toString() + " | " + message;
     }
 }
