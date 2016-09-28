@@ -2,8 +2,10 @@ package ca.ualberta.cs.lonelytwitter;
 
 import android.test.ActivityInstrumentationTestCase2;
 
+import java.util.Date;
 import java.util.IllegalFormatException;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Wookiez on 9/27/2016.
@@ -61,10 +63,9 @@ public class TweetListTest extends ActivityInstrumentationTestCase2<LonelyTwitte
         try {
             list.addTweet(a);
             list.addTweet(a);
-            assertTrue(false);
+            fail();
         }
-        catch (IllegalArgumentException e){
-            assertTrue(true);
+        catch (IllegalArgumentException e) {
         }
     }
 
@@ -74,6 +75,7 @@ public class TweetListTest extends ActivityInstrumentationTestCase2<LonelyTwitte
 
         Tweet a = new NormalTweet("Hello!");
         Tweet b = new NormalTweet("Hi!");
+        a.setDate(new Date(1));
         list.addTweet(a);
         list.addTweet(b);
         list2.addTweet(b);
@@ -82,10 +84,10 @@ public class TweetListTest extends ActivityInstrumentationTestCase2<LonelyTwitte
         List<Tweet> sortedlist2 = list2.getTweets();
 
         for (int i = 0; i < (sortedlist.size() - 1); i++) {
-            assertTrue(sortedlist.get(i).getDate().compareTo(sortedlist.get(i + 1).getDate()) >= 0);
+            assertTrue(sortedlist.get(i).getDate().compareTo(sortedlist.get(i + 1).getDate()) < 0);
         }
         for (int i = 0; i < (sortedlist2.size() - 1); i++) {
-            assertTrue(sortedlist2.get(i).getDate().compareTo(sortedlist2.get(i + 1).getDate()) >= 0);
+            assertTrue(sortedlist2.get(i).getDate().compareTo(sortedlist2.get(i + 1).getDate()) < 0);
         }
     }
 
