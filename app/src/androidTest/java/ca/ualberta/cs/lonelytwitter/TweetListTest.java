@@ -9,11 +9,23 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Wookiez on 9/27/2016.
+ *
+ * Test cases for TweetLists.
+ *
+ * @author Kevin
  */
 public class TweetListTest extends ActivityInstrumentationTestCase2<LonelyTwitterActivity> {
+    /**
+     * Instantiates a new Tweet list test.
+     */
     public TweetListTest() {
         super (LonelyTwitterActivity.class);
     }
+
+    /**
+     * Test add tweet.
+     * Adds a Tweet item into a TweetList and checks if it is there.
+     */
     public void testAddTweet() {
         TweetList list = new TweetList();
 
@@ -22,6 +34,11 @@ public class TweetListTest extends ActivityInstrumentationTestCase2<LonelyTwitte
         assertTrue(list.hasTweet(tweet));
     }
 
+    /**
+     * Test has tweet.
+     * Checks if a Tweet is in an empty TweetList and
+     * adds a Tweet item into the TweetList and checks if it is there.
+     */
     public void testHasTweet() {
         TweetList list = new TweetList();
 
@@ -32,6 +49,11 @@ public class TweetListTest extends ActivityInstrumentationTestCase2<LonelyTwitte
         assertTrue(list.hasTweet(tweet));
     }
 
+    /**
+     * Test get tweet.
+     * Adds two Tweets to a TweetList, then compares the two tweets
+     * by retrieving them from the TweetList.
+     */
     public void testGetTweet() {
         TweetList list = new TweetList();
 
@@ -45,6 +67,11 @@ public class TweetListTest extends ActivityInstrumentationTestCase2<LonelyTwitte
         assertEquals(list.getTweet(1), b);
     }
 
+    /**
+     * Test delete tweet.
+     * Adds a Tweet to a TweetList checks if it is there,
+     * then deletes and checks if it is there.
+     */
     public void testDeleteTweet() {
         TweetList list = new TweetList();
 
@@ -57,6 +84,11 @@ public class TweetListTest extends ActivityInstrumentationTestCase2<LonelyTwitte
         assertFalse(list.hasTweet(a));
     }
 
+    /**
+     * Test add tweet 2.
+     * Checks if adding the same Tweets to a TweetList will
+     * throw a IllegalArgumentException.
+     */
     public void testAddTweet2() {
         TweetList list = new TweetList();
         Tweet a = new NormalTweet("Hello!");
@@ -69,6 +101,12 @@ public class TweetListTest extends ActivityInstrumentationTestCase2<LonelyTwitte
         }
     }
 
+    /**
+     * Test get tweets.
+     * Make two TweetLists, adds to both of them two Tweets in
+     * different orders and checks if the getTweets returns
+     * them in a sorted order by date.
+     */
     public void testgetTweets() {
         TweetList list = new TweetList();
         TweetList list2 = new TweetList();
@@ -91,6 +129,12 @@ public class TweetListTest extends ActivityInstrumentationTestCase2<LonelyTwitte
         }
     }
 
+    /**
+     * Testhas tweet.
+     * Creates a TweetList and 3 different Tweets.
+     * Then adds 2 different Tweets and checks if
+     * they are present.
+     */
     public void testhasTweet() {
         TweetList list = new TweetList();
 
@@ -103,6 +147,11 @@ public class TweetListTest extends ActivityInstrumentationTestCase2<LonelyTwitte
         assertEquals(list.hasTweet(a), true);
     }
 
+    /**
+     * Testremove tweet.
+     * Creates a Tweetlist, adds two different Tweets, removes
+     * a Tweet and checks the count and if it is there.
+     */
     public void testremoveTweet() {
         TweetList list = new TweetList();
 
@@ -115,6 +164,11 @@ public class TweetListTest extends ActivityInstrumentationTestCase2<LonelyTwitte
         assertEquals(list.hasTweet(a), false);
     }
 
+    /**
+     * Testget count.
+     * Creates a TweetList, adds two different Tweets
+     * and checks if the count returned is 2.
+     */
     public void testgetCount() {
         TweetList list = new TweetList();
 
