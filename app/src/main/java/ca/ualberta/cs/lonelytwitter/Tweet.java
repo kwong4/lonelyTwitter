@@ -1,5 +1,6 @@
 package ca.ualberta.cs.lonelytwitter;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -10,7 +11,7 @@ import java.util.Date;
  *
  * @author Kevin
  */
-public abstract class Tweet  implements Comparable<Tweet>{
+public abstract class Tweet  implements Comparable<Tweet>, Serializable{
     private String message;
     private Date date;
 
