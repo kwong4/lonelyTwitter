@@ -22,6 +22,43 @@ import io.searchbox.core.SearchResult;
 public class ElasticsearchTweetController {
     private static JestDroidClient client;
 
+    public static class SearchTweetsTask extends AsyncTask<String, Void, ArrayList<NormalTweet>> {
+
+        @Override
+        protected ArrayList<NormalTweet> doInBackground(String... search_parameters) {
+            verifySettings();
+
+            ArrayList<NormalTweet> tweets = new ArrayList<NormalTweet>();
+
+            //Just list top 10000 tweets
+            //String search_string = "\{\"from\": 0, \"size\": 10000}"
+            String search_string = "{\"from\": 0, \"size\": 10000, \"query\": {\"match\": {\"message\": \"" + search_parameters[0] + "\"}}}";
+
+            // assume that search_parameters[0] is the only search term we are interested in using
+            Search search = new Search.Builder(search_string)
+                    .addIndex("testing")
+                    .addType("tweet")
+                    .build();
+
+            try {
+                SearchResult result = client.execute(search);
+                if (result.isSucceeded()) {
+                    List<NormalTweet> foundTweets = result.getSourceAsObjectList(NormalTweet.class);
+                    tweets.addAll(foundTweets);
+                }
+                else {
+                    Log.i("Error", "The search query failed to find any tweets that matched.");
+                }
+            }
+            catch (Exception e) {
+                Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
+            }
+
+            return tweets;
+        }
+
+    }
+
     // TODO we need a function that gets tweets!
     public static class GetTweetsTask extends AsyncTask<String, Void, ArrayList<NormalTweet>> {
         @Override
